@@ -53,6 +53,19 @@ def registrar_pedido(config: Configuracion, cliente: str, items: list[dict]) -> 
             f"{config.pedido_minimo}."
         )
 
+    productos_distintos = {item.producto_id for item in pedido.items}
+    if len(productos_distintos) > config.max_lineas_pedido:
+        return _error(
+            "El pedido excede el límite configurado para productos distintos "
+            f"({config.max_lineas_pedido})."
+        )
+
+    if total > config.monto_maximo_pedido:
+        return _error(
+            f"El total del pedido ({total}) supera el máximo de "
+            f"{config.monto_maximo_pedido}."
+        )
+
     numero = len(PEDIDOS) + 1
     PEDIDOS.append(
         {
