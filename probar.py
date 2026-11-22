@@ -1,18 +1,7 @@
-from pydantic import ValidationError
-from agente_operaciones.modelos import Pedido
+from agente_operaciones.herramientas import consultar_producto
 
-def probar(datos):
-    try:
-        p = Pedido.model_validate(datos)
-        print("OK", p)
-    except ValidationError as e:
-        for err in e.errors():
-            print(".".join(map(str, err["loc"])) + ": " + err["msg"])
-
-            
-probar({"cliente": "Ana", "items": [{"producto_id": "cuaderno-a4", "cantidad": 2}]})
-probar({"cliente": "", "items": [{"producto_id": "cuaderno-a4", "cantidad": 2}]})
-probar({"cliente": "Ana", "items": []})
-probar({"cliente": "Ana", "items": [{"producto_id": "cuaderno-a4", "cantidad": "tres"}]})
-probar({"cliente": "Ana", "items": [{"producto_id": "cuaderno-a4", "cantidad": "3"}]})
-probar({"cliente": "Ana", "items": [{"producto_id": "cuaderno-a4"}]})
+print(consultar_producto("cuaderno"))
+print(consultar_producto("lapiz"))
+print(consultar_producto("organizador"))
+print(consultar_producto(""))
+print(consultar_producto("papel"))
