@@ -1,7 +1,8 @@
-from agente_operaciones.herramientas import consultar_producto
+from agente_operaciones.config import cargar_configuracion
+from agente_operaciones.herramientas import PEDIDOS, registrar_pedido
 
-print(consultar_producto("cuaderno"))
-print(consultar_producto("lapiz"))
-print(consultar_producto("organizador"))
-print(consultar_producto(""))
-print(consultar_producto("papel"))
+config = cargar_configuracion()
+print(registrar_pedido(config, "Ana", [{"producto_id": "cuaderno-a4", "cantidad": 2}]))
+print(len(PEDIDOS))
+print(registrar_pedido(config, "Ana", [{"producto_id": "cuaderno-a4", "cantidad": 0}]))
+print(len(PEDIDOS))
