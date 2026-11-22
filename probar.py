@@ -1,13 +1,15 @@
+from agente_operaciones.agente import HERRAMIENTAS, ejecutar
 from agente_operaciones.config import cargar_configuracion
-from agente_operaciones.herramientas import PEDIDOS, registrar_pedido
+from agente_operaciones import herramientas
 
 config = cargar_configuracion()
 
-print(config.cantidad_maxima_por_item)  # Afirmación 0: la cantidad máxima por item es la que está en la configuración
-
-# Afirmación 1: una cantidad 0 devuelve error
-print(registrar_pedido(config, "Ana", [{"producto_id": "cuaderno-a4", "cantidad": 0}]))
-# Afirmación 2: ese error no agrega nada a PEDIDOS
-print(len(PEDIDOS))
-# Afirmación 3: el máximo sale de la configuración
-print(registrar_pedido(config, "Ana", [{"producto_id": "cuaderno-a4", "cantidad": 3}]))
+print([h["function"]["name"] for h in HERRAMIENTAS])
+print([hasattr(herramientas, h["function"]["name"]) for h in HERRAMIENTAS])
+print(ejecutar(config, "consultar_producto", {"nombre": "cuaderno"}))
+print(ejecutar(config, "registrar_pedido", {"cliente": "Ana", "items": [{"producto_id": "cuaderno-a4", "cantidad": 2}]}))
+print(ejecutar(config, "borrar_todo", {}))
+print(ejecutar(config, "consultar_producto", {"producto": "cuaderno"}))
+print(ejecutar(config, "registrar_pedido", {"cliente": "Ana"}))
+print(ejecutar(config, "registrar_pedido", [1, 2]))
+print(len(herramientas.PEDIDOS))
