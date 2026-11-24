@@ -97,12 +97,9 @@ SYSTEM_PROMPT = (
 
 
 class Agente:
-    def __init__(self, config: Configuracion):
+    def __init__(self, config: Configuracion, cliente: Groq | None = None):
         self.config = config
-        api_key = config.groq_api_key.get_secret_value()
-        if not api_key or not config.modelo:
-            raise ValueError("Falta la clave de API o el modelo.")
-        self.cliente = Groq(api_key=api_key)
+        self.cliente = cliente or Groq(api_key=config.groq_api_key.get_secret_value())
         self.historial = [{"role": "system", "content": SYSTEM_PROMPT}]
 
     def responder(self, mensaje: str) -> str:
