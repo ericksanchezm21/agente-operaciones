@@ -9,3 +9,4 @@
 - Las herramientas devuelven texto JSON; representa los fallos como `{"error": "mensaje claro"}`, no como excepciones.
 - Antes de editar, explica qué vas a cambiar; no modifiques lo que ya funciona.
 - No modifiques `verificar_semana1.py`.
+- Las pruebas viven en `tests/`. Nunca llames a Groq real en una prueba: usa el cliente falso de `tests/falsos.py`.

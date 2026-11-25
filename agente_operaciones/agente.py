@@ -152,7 +152,7 @@ class Agente:
                 try:
                     argumentos = json.loads(llamada.function.arguments)
                 except (json.JSONDecodeError, TypeError) as exc:
-                    resultado = _error(f"Argumentos de herramienta inválidos: {exc}")
+                    resultado = _error(f"Argumentos de herramienta ilegibles: {exc}")
                 else:
                     resultado = ejecutar(self.config, nombre, argumentos)
 
